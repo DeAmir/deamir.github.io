@@ -6,7 +6,7 @@ categories:
 tags: []
 math: true
 ---
-This part covers the construction of a TM that can print the description of itself. The next part is more worthy of the name and covers the implementation of actual recursion in TMs.
+This part covers the construction of a Turing Machine (TM) that can print the description of itself. The next part is more worthy of the name and covers the implementation of actual recursion in TMs.
 Both parts contain Python examples that demonstrate the concepts.
 ## Motivation
 Recursion is a powerful tool. It's easily utilized on actual computers, because of the way computers load and execute programs: first, a function is put into a defined memory chunk, and then the chunk address is loaded into any self-reference that the function makes.
