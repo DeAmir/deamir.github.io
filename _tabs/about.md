@@ -4,8 +4,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-This blog contains my attempts to explain and clarify complex concepts that I encounter in CS and Math. Essentially it's here that I practice the Feynman method.
+In this blog, I aim to simplify and clarify intricate concepts in the fields of computer science and mathematics. Essentially, I employ the Feynman method to achieve this goal.
 
-I love to distill such concepts to their basic intuitions, and talk about the concepts in a broader perspective. 
+My approach is to break down these concepts into their fundamental aspects and present them from a wider perspective. 
 
-I make my notes public in the hope that they would be helpful to other.
+I make my notes public with the intention of assisting others who might find them useful.
