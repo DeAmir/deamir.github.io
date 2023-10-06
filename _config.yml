@@ -26,7 +26,7 @@ description: >- # used by seo meta and the atom feed
   The place that enables me to make sure that I actually understand stuff.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: ""
+url: 'https://deamir.github.io'
 
 github:
   username: DeAmir # change to your github username
