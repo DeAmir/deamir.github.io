@@ -8,4 +8,4 @@ This blog contains my attempts to explain and clarify complex concepts that I en
 
 I love to distill such concepts to their basic intuitions, and talk about the concepts in a broader perspective. 
 
-I make my notes public in the hope that they would be helpful for other.
+I make my notes public in the hope that they would be helpful to other.
