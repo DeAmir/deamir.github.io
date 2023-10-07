@@ -23,7 +23,7 @@ A relaxed version of the theorem is the following:
 > There exists a TM that once done executing, the tape contains its own description.
 
 This version provides the basic methods behind the full theorem.
-We now need to construct such a TM. This is difficult to do so in explicitly - try to create a Python program that prints itself. For example, if you start with `print(` then you need another `print(` inside etc., infinitely many times.
+We now need to construct such a TM. This is difficult to do explicitly - try to create a Python program that prints itself. For example, if you start with `print(` then you need another `print(` inside etc., infinitely many times.
 
 ### The Construction
 We construct such a machine, SELF, by separating the printing process into two parts, each carried out by a dedicated TM. The machines are $A$ and $B$. The $SELF$ machine would be executing $A$ and then $B$.
