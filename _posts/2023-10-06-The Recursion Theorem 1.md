@@ -17,6 +17,8 @@ The Recursion Theorem proves that TMs, too, can utilize recursion. This result i
 The result is another confirmation of the Church-Turing thesis.
 
 ## $SELF$: A SELF-printing TM
+How can a TM call itself? One way to do so, is by getting its own description, and then simulate it on an input. Hence, a TM would have to be able to get its own description and then do some computation with it.
+
 A relaxed version of the theorem is the following:
 > There exists a TM that once done executing, the tape contains its own description.
 
