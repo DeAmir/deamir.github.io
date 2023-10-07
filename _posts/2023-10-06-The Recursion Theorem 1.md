@@ -19,12 +19,12 @@ The result is another confirmation of the Church-Turing thesis.
 ## Recurrence in TMs
 How can a TM call itself? One way to do so is by getting its own description, and then simulating it on an input. Hence, a TM would have to be able to get its own description and then do some computation with it.
 
-For example, the following is a TM that recursively calculates the $n$ Fibonacci number:
+For example, the following is a TM that recursively calculates the $n$th Fibonacci number:
 > $FIB$: given $n$,
 > 1. If $n=0,1$ write $1$ to tape and finish.
 > 2. Otherwise, get my own description $\langle FIB\rangle$.
 > 3. Simulate the machine $FIB$, using the description calculated in 2, on $n-1$ and $n-2$.
-> 4. Write to the tape the sum of the call results.
+> 4. Write to the tape the sum of the two results.
 
 ## $SELF$: A SELF-printing TM
 
