@@ -36,7 +36,7 @@ This version provides the basic methods behind the full theorem.
 We now need to construct such a TM. This is difficult to do explicitly - try to create a Python program that prints itself. For example, if you start with `print(` then you need another `print(` inside etc., infinitely many times.
 
 ### The Construction
-We construct such a machine, SELF, by separating the printing process into two parts, each carried out by a dedicated TM. The machines are $A$ and $B$. The $SELF$ machine would be executing $A$ and then $B$.
+We construct such a machine, $SELF$, by separating the printing process into two parts, each carried out by a dedicated TM. The machines are $A$ and $B$. The $SELF$ machine would be executing $A$ and then $B$.
 
 If $A$ prints the string $S_A$, then $B$ could get the description of $A$: it's the description of the machine $P_{S_A}$ that only prints the string $S_A$ - which resides on the tape as it arrives to $B$.
 So $B$ has the description of $A$. If it also had the description of itself, then it'd have access to $\langle A\rangle$  and $\langle B\rangle$ and then write to tape $\langle AB\rangle$ (a description of the machine that first executed $A$ and then $B$). That's exactly the description of $SELF$.
