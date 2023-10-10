@@ -56,7 +56,7 @@ We implement the machine $R$ that calculates Fibonacci numbers recursively. We b
 We already implemented $T$, as a TM. A python version is:
 
 ```python
-# Tape on input: get w#<M>  
+# Tape on input: w#<M>  
 first_sharp = tape.find('#')  
 w, fib_rep = tape[:first_sharp], tape[first_sharp+1:]  
 w = int(w)  
@@ -64,7 +64,7 @@ if w==0 or w==1:
     tape='1'  
 # make "recursive" calls   
 else:  
-	# call on w-1 
+    # call on w-1 
     tape = str(w-1)  
     ns = {}  
     ns.update(globals())  
