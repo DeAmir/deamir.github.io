@@ -25,7 +25,7 @@ Then, for example, if we wish to craft a TM that calculates Fibonacci numbers re
 > 2. Simulate the machine $M$, using the description $\langle M\rangle$, on $n-1$ and $n-2$.
 > 3. Write to the tape the sum of the two results.
 
-Then theorem will show us how to make a machine $R$ that sets $\langle M\rangle=\langle R\rangle$. That way, the calls in step 2 are recursive.
+The theorem will show us how to make a machine $R$ that sets $\langle M\rangle=\langle R\rangle$. That way, the calls in step 2 are recursive.
 
 ## Proof
 The TM $R$ is composed of three parts, each carried out by a dedicated TM: $A, B$ and $T$.
@@ -35,7 +35,7 @@ The proof is similar to the SELF-printing machine (see the previous post), but t
 For this reason, we define $AP_s$ to be the TM that appends the string $\text{#}s$ to the existing tape contents and finishes.
 
 **Construction:**
-1. $A$ - will append the description of the last 2 steps to the existing tape. The tape after $A$ finishes contains $w\text{#}\langle BT\rangle$.
+1. $A$ is set to $AP_{\langle BT\rangle}$ - the machine that appends the description of the last 2 steps to the existing tape. The tape after $A$ finishes contains $w\text{#}\langle BT\rangle$.
 2. $B$ - will get the part of the tape before and after the #, denote $b$ and $e$ resp. We assume $e$ to be a valid representation of a TM (which is true by definition of $A$, but to avoid confusion we may simply check that and finish if it's not).
 	Then calculate $\langle AP_{e}\rangle$.
 	Change the contents of the tape to: $w\text{#}\langle AP_ee\rangle$. (Recall that $e$ is a TM representation.)
