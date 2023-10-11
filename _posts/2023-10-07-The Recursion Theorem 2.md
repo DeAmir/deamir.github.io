@@ -46,7 +46,7 @@ These definitions are proper because the definitions of $B$ and $T$ don't rely o
 Let's see why the construction works by running the machine $R$:
 1. Before $A$, the tape contains $w$.
 2. $A$ runs and appends $\langle BT\rangle$ to the tape, resulting with the tape being $w\text{#}\langle BT\rangle$.
-3. $B$ runs, it calculates $\langle P_{\langle BT\rangle}\rangle=\langle A\rangle$, combines it the 2+3 to get $\langle ABT\rangle=\langle R\rangle$. Then it makes the tape contain $w\text{#} \langle R\rangle$.
+3. $B$ runs, it calculates $\langle P_{\langle BT\rangle}\rangle=\langle A\rangle$, combines it with 2+3 to get $\langle ABT\rangle=\langle R\rangle$. Then it makes the tape contain $w\text{#} \langle R\rangle$.
 4. $T$ runs on the tape $w\text{#}\langle R\rangle$, resulting with output $t(w,\langle R\rangle)$.
 
 ## Python Implementation
