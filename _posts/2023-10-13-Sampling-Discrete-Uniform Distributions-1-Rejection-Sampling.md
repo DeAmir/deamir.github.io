@@ -76,7 +76,7 @@ Comparing rejection sampling to regular sampling for powers of 2, we see that it
 
 Yet not asymptotically, the runtime is four times that of the trivial sampler and uses twice as much random as the trivial sampler.
 
-### Does constant difference matter? Why asymptotic equivalence isn't enough?
+### Does a constant multiplier matter? Why asymptotic equivalence isn't enough?
 Indeed, when considering a single run of the algorithm, the difference between a running time of $$4\log n$$ and $$\log n$$ is negligible. We probably wouldn't sample a distribution holding more than $$n=2^{1000}$$  values.
 
 That being said, a sampler isn't run a single time, and the analysis should assume that the sampler is deployed and used many times. In this case, the trivial sampler of power of 2 is **four times faster** than a rejection sampler for not powers of 2. If we were to run the samplers many times, those constant multipliers would cause a considerable runtime gap.
