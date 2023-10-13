@@ -63,10 +63,10 @@ $$
 
 
 Because $$2^{\lceil \log n\rceil}=2\cdot 2^{\lceil \log n\rceil-1}$$, and $$n$$ is strictly to the right of $$2^{\lceil \log n\rceil -1}$$, we get that $$p=[n]/2^{\lceil \log n\rceil}>1/2$$.
-Therefore, $$E[X]=1/p<2$$, and the expected running time of the algorithm is $$2\cdot 2\log n=4\log n$$.
+Therefore, $$E[X]=1/p<2$$, and the expected running time of the algorithm is at most  $$2\cdot 2\log n=4\log n$$.
 
 Further note, that when $$n$$ is closer from above to a power of 2, the probability of success decreases, and when $$n$$ is closer from below to a power of 2, the success probability increases. 
-We take the worst case, when $$n$$ is exactly one more than a power of two. For large $$n$$, the success probability is very close to half.
+We take the worst case, when $$n$$ is exactly one more than a power of two. For large $$n$$, the success probability is very close to half, and the runtime inequality is very close to equality.
 
 ### Random Used
 The amount of sampled bits is $$X\cdot \log n$$ and in expectation $$2\log n$$.
@@ -77,7 +77,7 @@ Comparing rejection sampling to regular sampling for powers of 2, we see that it
 Yet not asymptotically, the runtime is four times that of the trivial sampler and uses twice as much random as the trivial sampler.
 
 ### Do constant difference matter? Why asymptotic equivalence isn't enough?
-Indeed, when considering a single run of the algorithm, the difference between a running time of $$4\log n$$ and $$\log n$$ is negligible. We probably wouldn't sample a distribution holding more than $$n=2^{1000}$$ values.
+Indeed, when considering a single run of the algorithm, the difference between a running time of $$4\log n$$ and $$\log n$$ is negligible. We probably wouldn't sample a distribution holding more than $$n=2^{1000}$$  values.
 
 That being said, a sampler isn't run a single time, and the analysis should assume that the sampler is deployed and used many times. In this case, the trivial sampler of power of 2 is **four times faster** than a rejection sampler for not powers of 2. If we were to run the samplers many times, those constant multipliers would cause a considerable runtime gap.
 
