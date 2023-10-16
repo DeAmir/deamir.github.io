@@ -36,7 +36,7 @@ For this reason, we define $AP_s$ to be the TM that appends the string $\text{#}
 
 **Construction:**
 1. $A$ is set to $AP_{\langle BT\rangle}$ - the machine that appends the description of the last 2 steps to the existing tape. The tape after $A$ finishes contains $w\text{#}\langle BT\rangle$.
-2. $B$ - will get the part of the tape before and after the #, denote $b$ and $e$ resp. We assume $e$ to be a valid representation of a TM (which is true by definition of $A$, but to avoid confusion we may simply check that and finish if it's not).
+2. $B$ - gets tape input $w\text{#}e$. We assume $e$ to be a valid representation of a TM (which is true by definition of $A$, but to avoid confusion we may simply check that and finish if it's not).
 	Then calculate $\langle AP_{e}\rangle$.
 	Change the contents of the tape to: $w\text{#}\langle AP_ee\rangle$. (Recall that $e$ is a TM representation.)
 3. $T$ - run on the given tape. (Assume that its parameters are separated by #.)
