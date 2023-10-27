@@ -4,28 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "3a0d856ff1c695cf",
+        "id": "33623a8a3a03dad3",
         "type": "tabs",
         "children": [
           {
-            "id": "3fd27cc1917d8ab4",
+            "id": "54845ede551f35d5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2023-10-07-The Recursion Theorem 2.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "4e129844fbbf2abf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "2023-10-06-The Recursion Theorem 1.md",
+                "file": "2023-10-06-recursion-theorem-1.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2023-10-07-The Recursion Theorem 2.md",
+                "file": "2023-10-06-recursion-theorem-1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2023-10-07-The Recursion Theorem 2.md",
+                "file": "2023-10-06-recursion-theorem-1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2023-10-07-The Recursion Theorem 2.md"
+                "file": "2023-10-06-recursion-theorem-1.md"
               }
             }
           }
@@ -158,9 +146,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3fd27cc1917d8ab4",
+  "active": "54845ede551f35d5",
   "lastOpenFiles": [
-    "2023-10-06-The Recursion Theorem 1.md",
-    "2023-10-07-The Recursion Theorem 2.md"
+    "2023-10-13-sampling-rejection-1.md",
+    "2023-10-27-sampling-approximate-2.md",
+    "2023-10-06-recursion-theorem-1.md",
+    "2023-10-07-recursion-theorem-2.md",
+    "2023-10-14-Approximating Uniform Distributions with Random Bits - Sampling Discrete Uniform Distributions (2).md",
+    "assets/img/approximatingUniform/part_and_dot.png.md",
+    "assets/img/approximatingUniform",
+    "assets/img",
+    "assets",
+    "assets/img/approximatingUniform/bin_partitioning.png.md",
+    "2023-10-13-Sampling-Discrete-Uniform Distributions-1-Rejection-Sampling.md",
+    "2023-10-07-The Recursion Theorem 2.md",
+    "Untitled.md",
+    "2023-10-06-The Recursion Theorem 1.md"
   ]
 }
