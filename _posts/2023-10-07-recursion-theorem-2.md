@@ -30,7 +30,7 @@ The theorem will show us how to make a machine $R$ that sets $\langle M\rangle=\
 ## Proof
 The TM $R$ is composed of three parts, each carried out by a dedicated TM: $A, B$ and $T$.
 
-The proof is similar to the SELF-printing machine (see the previous post), but this time we need to keep the given input, and not simply erase the tape. That's because the original tape contents $w$ will be a parameter of the call to $T$.
+The proof is similar to the SELF-printing machine (see the [previous post]({% post_url 2023-10-06-recursion-theorem-1 %})), but this time we need to keep the given input, and not simply erase the tape. That's because the original tape contents $w$ will be a parameter of the call to $T$.
 
 For this reason, we define $AP_s$ to be the TM that appends the string $\text{#}s$ to the existing tape contents and finishes.
 

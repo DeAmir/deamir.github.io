@@ -10,7 +10,7 @@ title: Rejection Sampling - Sampling Discrete Uniform Distributions (1)
 The other day I wondered how computers sample from a discrete uniform distribution over $$n$$ values. The method that straightly came to mind is sampling the necessary amount of random bits and getting a result. Yet, that works only for distributions whose $$n$$s are powers of two.
 What about when $$n$$ isn't a power of 2? 
 
-I took it as an exercise. This post covers my path to analyze the first solution that came to my mind, which I later discovered is known as *rejection sampling*. It addresses its issues, which motivated me to achieve another solution, that's covered in the next post.
+I took it as an exercise. This post covers my path to analyze the first solution that came to my mind, which I later discovered is known as *rejection sampling*. It addresses its issues, which motivated me to achieve another solution, that's covered in the [next post]({% post_url 2023-10-27-sampling-approximate-2 %}).
 
 ## Problem Definition
 We are given a natural number $$n$$ and a random bit oracle. A call to the oracle takes constant time. The problem is to sample uniformly from the set $$[n]=\{ 1,...,n \}$$. Note that the sole source of randomness is the random bit oracle.

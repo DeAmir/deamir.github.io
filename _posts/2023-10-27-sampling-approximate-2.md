@@ -9,7 +9,7 @@ title: Approximating Uniform Distributions with Random Bits - Sampling Discrete 
 ---
 The other day I wondered how computers sample from a uniform discrete distribution over $$n$$ values. The method that straightly came to mind is sampling the necessary amount of random bits. Yet, that works only for distributions whose $$n$$s are powers of two.
 
-The previous post on *Rejection Sampling* addressed the first solution that came to my mind. To recap, this solution involves repeatedly sampling $$\lceil \log n\rceil$$ bits, rejecting samples that fall out of $$[n]$$, until such a number is reached.
+The [previous post]({% post_url 2023-10-13-sampling-rejection-1 %}) on *Rejection Sampling* addressed the first solution that came to my mind. To recap, this solution  involves repeatedly sampling $$\lceil \log n\rceil$$ bits, rejecting samples that fall out of $$[n]$$, until such a number is reached.
 
 This method is costly in the amount of random that it uses, and in expectation throws away (i.e. doesn't use) half of the bits it samples. It also runs 4 times slower than the trivial sampler for $$n$$ power of 2.
 
