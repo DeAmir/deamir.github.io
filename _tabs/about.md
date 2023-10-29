@@ -4,8 +4,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-In this blog, I aim to simplify and clarify intricate concepts in the fields of computer science and mathematics. Essentially, I employ the Feynman method to achieve this goal.
+Sometimes I think that I know things. To make sure that I do, I utilize the Feinman Method, as it forces me to understand every little detail of a concept/proof/intuition.
 
-My approach is to break down these concepts into their fundamental intuitions and present them from a wider perspective. 
+This blog was created to incentivize me to use the Feinmann Method on ideas I find complex or bewildering. That way, I will ultimately have created an archive full of explanations of complex concepts, that I wish were presented to me early on. What a wonderful prospect!
 
-I make my notes public with the intention of assisting others who might find them useful.
+I make my efforts publicly available in the hope that others would find it helpful.
