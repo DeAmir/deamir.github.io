@@ -1,9 +1,10 @@
 ---
 title: "Public vs Private Randomness: Two Sides of the Same Coin"
 date: 2023-11-26
-categories:
-  - Interactive Proofs
-tags: 
+categories: []
+tags:
+  - Interactive-Proofs
+  - Computability-Theory
 math: true
 ---
 ---

@@ -1,8 +1,8 @@
 ---
 math: true
-tags: 
-categories:
+tags:
   - Probability
+categories: []
 date: 2023-10-14
 title: Approximating Uniform Distributions with Random Bits - Sampling Discrete Uniform Distributions (2)
 ---

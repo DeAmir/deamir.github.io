@@ -1,8 +1,8 @@
 ---
 math: true
-tags: 
-categories:
+tags:
   - Probability
+categories: []
 date: 2023-10-13
 title: Rejection Sampling - Sampling Discrete Uniform Distributions (1)
 ---

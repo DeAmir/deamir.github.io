@@ -1,9 +1,9 @@
 ---
 title: The Recursion Theorem 2
 date: 2023-10-07
-categories:
-  - Computability Theory
-tags: 
+categories: 
+tags:
+  - Computability-Theory
 math: true
 ---
 How can a TM call itself - and use recursion?

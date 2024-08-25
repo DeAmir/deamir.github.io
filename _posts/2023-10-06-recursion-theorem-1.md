@@ -1,9 +1,9 @@
 ---
 title: The Recursion Theorem 1
 date: 2023-10-06
-categories:
-  - Computability Theory
-tags: []
+categories: 
+tags:
+  - Computability-Theory
 math: true
 ---
 This part covers the construction of a Turing Machine (TM) that prints the description of itself. The [next part]({% post_url 2023-10-07-recursion-theorem-2 %}) is more worthy of the name and covers the implementation of actual recursion in TMs.
