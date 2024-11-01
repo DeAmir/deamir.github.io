@@ -1,7 +1,7 @@
 ---
 title: The Intuition Behind Montgomery Multiplication
 date: 2024-08-23
-categories: []
+categories: 
 tags:
   - Computability-Theory
   - Computational-Number-Theory
