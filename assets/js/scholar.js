@@ -134,6 +134,15 @@
 
     if (headings.length) toc.appendChild(list);
 
+    var links = Array.from(toc.querySelectorAll('a'));
+
+    function setCurrentLink(activeLink) {
+      links.forEach(function (link) {
+        link.removeAttribute('aria-current');
+      });
+      if (activeLink) activeLink.setAttribute('aria-current', 'location');
+    }
+
     window.addEventListener('load', function () {
       if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
         MathJax.startup.promise.then(function () {
@@ -145,6 +154,7 @@
     toc.addEventListener('click', function (event) {
       var link = event.target.closest('a');
       if (!link) return;
+      setCurrentLink(link);
       if (window.matchMedia('(max-width: 760px)').matches) {
         var details = toc.closest('details');
         if (details) details.open = false;
@@ -152,16 +162,13 @@
     });
 
     if ('IntersectionObserver' in window && headings.length) {
-      var links = Array.from(toc.querySelectorAll('a'));
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
-          links.forEach(function (link) {
-            link.removeAttribute('aria-current');
-            if (decodeURIComponent(link.hash.slice(1)) === entry.target.id) {
-              link.setAttribute('aria-current', 'location');
-            }
+          var activeLink = links.find(function (link) {
+            return decodeURIComponent(link.hash.slice(1)) === entry.target.id;
           });
+          setCurrentLink(activeLink);
         });
       }, { rootMargin: '-15% 0px -75% 0px' });
 
