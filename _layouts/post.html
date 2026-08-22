@@ -23,9 +23,15 @@ layout: default
   <div class="post-grid">
     <aside class="toc-panel" aria-label="On this page">
       <details class="toc-details" open>
-        <summary>Table of contents</summary>
+        <summary>
+          <span class="toc-current-section" data-toc-current data-default-section="{{ page.title | escape }}">{{ page.title }}</span>
+          <span class="toc-chevron" aria-hidden="true">⌄</span>
+        </summary>
         <nav class="toc-list" data-toc></nav>
       </details>
+      <div class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span data-reading-progress></span>
+      </div>
     </aside>
 
     <div class="post-column">

@@ -100,6 +100,9 @@
   var content = document.querySelector('[data-post-content]');
   var toc = document.querySelector('[data-toc]');
   var tocDetails = document.querySelector('.toc-details');
+  var currentSection = document.querySelector('[data-toc-current]');
+  var progressTrack = document.querySelector('.reading-progress');
+  var progressBar = document.querySelector('[data-reading-progress]');
 
   if (tocDetails && window.matchMedia('(max-width: 760px)').matches) {
     tocDetails.open = false;
@@ -141,14 +144,56 @@
         link.removeAttribute('aria-current');
       });
       if (activeLink) activeLink.setAttribute('aria-current', 'location');
+      if (currentSection) {
+        currentSection.textContent = activeLink
+          ? activeLink.textContent
+          : currentSection.dataset.defaultSection;
+      }
+    }
+
+    function updateReadingState() {
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var marker = scrollTop + Math.min(window.innerHeight * 0.2, 160);
+      var activeHeading = null;
+
+      headings.forEach(function (heading) {
+        var headingTop = heading.getBoundingClientRect().top + scrollTop;
+        if (headingTop <= marker) activeHeading = heading;
+      });
+
+      var activeLink = activeHeading && links.find(function (link) {
+        return decodeURIComponent(link.hash.slice(1)) === activeHeading.id;
+      });
+      setCurrentLink(activeLink || null);
+
+      if (progressBar && progressTrack) {
+        var contentTop = content.getBoundingClientRect().top + scrollTop;
+        var contentEnd = contentTop + content.offsetHeight - window.innerHeight;
+        var distance = Math.max(contentEnd - contentTop, 1);
+        var progress = Math.max(0, Math.min(1, (scrollTop - contentTop) / distance));
+        progressBar.style.transform = 'scaleX(' + progress + ')';
+        progressTrack.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
+      }
+    }
+
+    var readingFrame = null;
+    function scheduleReadingUpdate() {
+      if (readingFrame !== null) return;
+      readingFrame = window.requestAnimationFrame(function () {
+        readingFrame = null;
+        updateReadingState();
+      });
     }
 
     window.addEventListener('load', function () {
       if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
         MathJax.startup.promise.then(function () {
-          if (MathJax.typesetPromise) MathJax.typesetPromise([toc]);
+          if (MathJax.typesetPromise) {
+            MathJax.typesetPromise([toc]).then(scheduleReadingUpdate);
+          }
         });
       }
+      scheduleReadingUpdate();
     });
 
     toc.addEventListener('click', function (event) {
@@ -156,34 +201,19 @@
       if (!link) return;
       setCurrentLink(link);
 
-      if ('onscrollend' in window) {
-        window.addEventListener('scrollend', function () {
-          setCurrentLink(link);
-        }, { once: true });
-      } else {
-        window.setTimeout(function () {
-          setCurrentLink(link);
-        }, 1500);
-      }
-
       if (window.matchMedia('(max-width: 760px)').matches) {
         var details = toc.closest('details');
         if (details) details.open = false;
       }
     });
 
-    if ('IntersectionObserver' in window && headings.length) {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var activeLink = links.find(function (link) {
-            return decodeURIComponent(link.hash.slice(1)) === entry.target.id;
-          });
-          setCurrentLink(activeLink);
-        });
-      }, { rootMargin: '-15% 0px -75% 0px' });
+    window.addEventListener('scroll', scheduleReadingUpdate, { passive: true });
+    window.addEventListener('resize', scheduleReadingUpdate);
 
-      headings.forEach(function (heading) { observer.observe(heading); });
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(scheduleReadingUpdate).observe(content);
     }
+
+    scheduleReadingUpdate();
   }
 }());

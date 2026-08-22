@@ -2,9 +2,9 @@
 
 Verification date: 2026-08-22
 
-This report follows `docs/redesign-acceptance.md`. The local implementation is
-ready for visual approval. Production deployment remains intentionally pending
-until that approval is given.
+This report follows `docs/redesign-acceptance.md`. The approved redesign is
+deployed on GitHub Pages; subsequent refinements are verified locally before
+each production update.
 
 ## Summary
 
@@ -15,14 +15,14 @@ until that approval is given.
 | Internal links and assets | Pass | HTML-Proofer checks 18 HTML files and 26 internal links with zero failures. |
 | Markdown rendering | Pass | Existing headings, lists, blockquotes, code, links, images, footnotes, video tag, and iframes build without source changes. |
 | LaTeX | Pass | MathJax rendered 258 math containers in the Montgomery post at every responsive test width. |
-| Table of contents | Pass | Markdown-derived entries are larger (13px/12px), desktop is sticky, mobile is collapsible, and the current entry receives a boxed background highlight in both themes. |
+| Table of contents | Pass | Markdown-derived entries are larger (13px/12px), desktop is sticky, and the current entry receives a boxed background highlight in both themes. On mobile, a sticky current-section header, reading-progress bar, and tappable dropdown TOC are generated from the same Markdown headings. |
 | Responsive layout | Pass | Tested at 320, 375, 768, 1024, and 1440 px with zero page overflow. |
 | Light/dark themes | Pass | Toggle, persistence across navigation, system-default selection, and both approved palettes verified. |
 | Page surfaces | Pass | Home, About, Archives, Tags, Categories, 404, image-heavy post, code post, and math post checked at mobile and desktop widths. Figure captions are centered beneath images; post pages omit the grid while other surfaces retain it. |
 | Accessibility structure | Pass | One `h1` per generated page, no duplicate IDs, labelled native controls, image `alt` attributes, skip link, semantic navigation, and WCAG AA palette contrast. |
 | Generated resources | Pass | Feed and sitemap parse as XML; web manifest parses as JSON; site, service-worker, and registration JavaScript pass syntax checks. |
-| Visual implementation | Requires Amir's visual approval | Local desktop/mobile and light/dark implementation is available for review. |
-| GitHub Pages deployment | Pending visual approval | The production workflow has not been triggered. |
+| Visual implementation | Pass | Amir approved the desktop/mobile and light/dark implementation. |
+| GitHub Pages deployment | Pass | The production GitHub Pages workflows completed successfully and the public site was browser-verified. |
 
 ## Automated commands
 
@@ -96,6 +96,15 @@ also asserted absent. Its supporting reference assets remain unchanged.
   number.
 - At 375 px, the Uncharted post has a 375 px document width (zero horizontal
   overflow), a collapsed TOC after navigation, and centered captions.
+- At 375 px, the mobile reader header becomes sticky at `top: 0`, displays the
+  current Markdown heading, and shows a progress value that advanced from 10%
+  at “A more informative formulation” to 97% at “Summary”.
+- Tapping the mobile reader header opens an independently scrolling TOC overlay;
+  selecting a section closes it, highlights that section with a background box,
+  and places the heading below the sticky header. The behavior passed in both
+  light and dark themes with zero horizontal overflow.
+- At 1280 px, the mobile summary and progress bar compute to `display: none`,
+  while the complete sticky desktop TOC remains visible.
 - At desktop width, TOC section/subsection labels compute to 13 px and 12 px.
 - The active TOC box computes to `rgb(191, 219, 231)` in light mode and
   `rgb(49, 87, 90)` in dark mode.
@@ -119,8 +128,7 @@ HTML-Proofer passed all 21 temporary-build pages and 29 internal links. The
 dummy source was then deleted, the production site was rebuilt, and checks
 confirmed that its post, subject, and category routes left no generated trace.
 
-## Remaining acceptance gates
+## Ongoing deployment gate
 
-1. Amir reviews and approves the local visual implementation.
-2. After approval, run the full suite again, commit only approved files, deploy
-   through GitHub Pages, and verify the production URLs in a fresh browser.
+Each refinement must pass the automated suite and responsive browser checks,
+then complete both GitHub Pages workflows and a fresh production browser check.

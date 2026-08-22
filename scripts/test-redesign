@@ -101,6 +101,8 @@ if site.directory?
     if relative_path.to_s.start_with?("posts/")
       failures << "post missing Markdown content wrapper: #{relative_path}" unless document.at_css("[data-post-content]")
       failures << "post missing generated TOC target: #{relative_path}" unless document.at_css("[data-toc]")
+      failures << "post missing current-section display: #{relative_path}" unless document.at_css("[data-toc-current]")
+      failures << "post missing reading-progress control: #{relative_path}" unless document.at_css(".reading-progress[role='progressbar'] [data-reading-progress]")
     end
 
     source = File.read(html_path)
