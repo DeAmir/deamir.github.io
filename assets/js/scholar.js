@@ -155,6 +155,17 @@
       var link = event.target.closest('a');
       if (!link) return;
       setCurrentLink(link);
+
+      if ('onscrollend' in window) {
+        window.addEventListener('scrollend', function () {
+          setCurrentLink(link);
+        }, { once: true });
+      } else {
+        window.setTimeout(function () {
+          setCurrentLink(link);
+        }, 1500);
+      }
+
       if (window.matchMedia('(max-width: 760px)').matches) {
         var details = toc.closest('details');
         if (details) details.open = false;
