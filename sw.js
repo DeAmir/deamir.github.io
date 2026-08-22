@@ -2,11 +2,11 @@
 layout: null
 permalink: /sw.js
 ---
-const CACHE_NAME = 'notes-labyrinth-v1';
+const CACHE_NAME = 'notes-labyrinth-{{ site.time | date: "%s" }}';
 const CORE_ASSETS = [
   '{{ "/" | relative_url }}',
-  '{{ "/assets/css/scholar.css" | relative_url }}',
-  '{{ "/assets/js/scholar.js" | relative_url }}'
+  '{{ "/assets/css/scholar.css" | relative_url }}?v={{ site.time | date: "%s" }}',
+  '{{ "/assets/js/scholar.js" | relative_url }}?v={{ site.time | date: "%s" }}'
 ];
 
 self.addEventListener('install', event => {
