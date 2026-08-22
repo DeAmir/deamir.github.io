@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "digest"
+require "nokogiri"
+require "pathname"
+
+ROOT = Pathname.new(__dir__).parent
+
+PROTECTED_HASHES = {
+  "_posts/2023-10-06-recursion-theorem-1.md" => "51cf1bd71670b8e74265606f224946cfec64128e6a2fab0e93ddfdc147244100",
+  "_posts/2023-10-07-recursion-theorem-2.md" => "5c366ee6dfdabfcfd11e10c3b16794ca32f4527b5cb3a21c2d4e7bb22531c5c3",
+  "_posts/2023-10-13-sampling-rejection-1.md" => "f738bcd44637148be491274f533d1fe43deb55cbc17a0f6c6cd3c68f79598a96",
+  "_posts/2023-10-27-sampling-approximate-2.md" => "3f497b512ee1e546cb44dca1180ada2130d8ec2200ceac5393bcd3c598f38294",
+  "_posts/2023-11-26-public-private-coins.md" => "59e4d682814b2961c290c4ad80a5a5181473b5dbd7cc1c4393a12c2b0c4965b7",
+  "_posts/2024-08-23-montgomery-intuition.md" => "94777a4f327933826ee2de391417ab8d06c825068ca9f1645d428e68372fa356",
+  "_posts/2024-10-11-uncharted-4.md" => "4021178106f17d62c28cdf0c9f31b78f58b3f92cbc1893e931ce5a4b69b1ef1b",
+  "_posts/2024-11-1-3-AWPM-vs-2.md" => "e1035ecdb25e593c32c38d7594d1ffcc032854981a07b91d4b2f74cdde540412",
+  "_posts/great.html" => "d870682d3b59398df44ede40d25f650b7e905d8a4048730185a01600d7a3c2d5",
+  "_tabs/about.md" => "e90573e17dea253fcbf5bd06e3a44e25a422fab6140aa9ebfab4975afc6595e3",
+  "_tabs/archives.md" => "57115bc5940a38cca43ddcc19e34cb3a6ed857252e44d248af33863a1f00b40e",
+  "_tabs/categories.md" => "cbed5350b349bfb76e169d266b63f3a49e108c9563188847581be93cc27211df",
+  "_tabs/tags.md" => "51d852c50def5443291f071e54e44e112857fa36467d5794edcee4604ce1a3e3"
+}.freeze
+
+EXPECTED_ROUTES = %w[
+  index.html
+  about/index.html
+  archives/index.html
+  categories/index.html
+  posts/3-AWPM-vs-2/index.html
+  posts/montgomery-intuition/index.html
+  posts/public-private-coins/index.html
+  posts/recursion-theorem-1/index.html
+  posts/recursion-theorem-2/index.html
+  posts/sampling-approximate-2/index.html
+  posts/sampling-rejection-1/index.html
+  posts/uncharted-4/index.html
+  tags/index.html
+  tags/computability-theory/index.html
+  tags/computational-number-theory/index.html
+  tags/interactive-proofs/index.html
+  tags/probability/index.html
+  feed.xml
+  sitemap.xml
+].freeze
+
+PROTECTED_ASSET_MANIFEST = "eb0b119ba48a4f715d3b31fda207ef89fc71b1bdef725eb763b510b6973388b7"
+
+failures = []
+
+PROTECTED_HASHES.each do |relative_path, expected|
+  path = ROOT.join(relative_path)
+  actual = path.file? ? Digest::SHA256.file(path).hexdigest : "missing"
+  failures << "content changed: #{relative_path}" unless actual == expected
+end
+
+asset_paths = ["assets/img/**/*", "assets/elf-hdr/**/*"].flat_map do |glob|
+  Dir[ROOT.join(glob).to_s]
+end
+  .select { |path| File.file?(path) && !path.end_with?(".DS_Store") }
+  .sort
+asset_manifest = asset_paths.map do |path|
+  relative_path = Pathname.new(path).relative_path_from(ROOT)
+  "#{Digest::SHA256.file(path).hexdigest}  #{relative_path}\n"
+end.join
+unless Digest::SHA256.hexdigest(asset_manifest) == PROTECTED_ASSET_MANIFEST
+  failures << "authored assets changed"
+end
+
+site = Pathname.new(ENV.fetch("SITE_DIR", ROOT.join("_site").to_s))
+if site.directory?
+  EXPECTED_ROUTES.each do |route|
+    failures << "missing route: /#{route.sub(%r{/index\.html\z}, "/")}" unless site.join(route).file?
+  end
+
+  Dir[site.join("**/*.html").to_s].sort.each do |html_path|
+    relative_path = Pathname.new(html_path).relative_path_from(site)
+    document = Nokogiri::HTML(File.read(html_path))
+
+    failures << "missing language: #{relative_path}" unless document.at_css("html[lang]")
+    failures << "missing title: #{relative_path}" if document.at_css("title")&.text.to_s.strip.empty?
+
+    headings = document.css("h1")
+    failures << "expected one h1, found #{headings.size}: #{relative_path}" unless headings.size == 1
+
+    ids = document.css("[id]").map { |node| node["id"] }.reject(&:empty?)
+    duplicate_ids = ids.tally.select { |_id, count| count > 1 }.keys
+    failures << "duplicate ids #{duplicate_ids.join(', ')}: #{relative_path}" unless duplicate_ids.empty?
+
+    document.css("button").each do |button|
+      label = button["aria-label"].to_s.strip
+      text = button.text.strip
+      failures << "unlabelled button: #{relative_path}" if label.empty? && text.empty?
+    end
+
+    document.css("img").each do |image|
+      failures << "image missing alt attribute: #{relative_path}" unless image.key?("alt")
+    end
+
+    if relative_path.to_s.start_with?("posts/")
+      failures << "post missing Markdown content wrapper: #{relative_path}" unless document.at_css("[data-post-content]")
+      failures << "post missing generated TOC target: #{relative_path}" unless document.at_css("[data-toc]")
+    end
+
+    source = File.read(html_path)
+    failures << "machine-specific URL in #{relative_path}" if source.match?(%r{(?:localhost|127\.0\.0\.1|/Users/amirde/)})
+  end
+
+  home = Nokogiri::HTML(File.read(site.join("index.html")))
+  failures << "landing page still contains an Abstract block" if home.at_css(".home-abstract")
+  paper_numbers = home.css(".paper-number").map { |node| node.text.to_i }
+  protected_post_count = PROTECTED_HASHES.keys.count do |path|
+    path.start_with?("_posts/") && File.basename(path).match?(/^\d{4}-\d{1,2}-\d{1,2}-/)
+  end
+  unless paper_numbers == paper_numbers.sort.reverse && paper_numbers.first == protected_post_count
+    failures << "landing-page post numbers are not newest-largest"
+  end
+
+  failures << "deleted ELF post was regenerated" if site.join("posts/ELF-Hello-World/index.html").file?
+else
+  failures << "_site is missing; run the production build first"
+end
+
+if failures.empty?
+  puts "PASS: protected content and route baseline"
+  exit 0
+end
+
+warn failures.join("\n")
+exit 1

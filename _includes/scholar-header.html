@@ -1,0 +1,22 @@
+<header class="site-header">
+  <a class="site-identity" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
+    <span class="sr-only">Open navigation</span>
+    <span aria-hidden="true">Menu</span>
+  </button>
+
+  <nav class="site-navigation" id="site-navigation" aria-label="Primary navigation">
+    <a href="{{ '/' | relative_url }}"{% if page.layout == 'home' %} aria-current="page"{% endif %}>Notes</a>
+    <a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} aria-current="page"{% endif %}>Subjects</a>
+    <a href="{{ '/archives/' | relative_url }}"{% if page.url == '/archives/' %} aria-current="page"{% endif %}>Archive</a>
+    <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>Author</a>
+    <a href="https://github.com/{{ site.github.username }}" rel="me">GitHub <span aria-hidden="true">↗</span></a>
+  </nav>
+
+  <button class="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+    <span class="theme-toggle-light" aria-hidden="true">☀</span>
+    <span class="theme-toggle-dark" aria-hidden="true">◐</span>
+    <span class="theme-toggle-label">Theme</span>
+  </button>
+</header>

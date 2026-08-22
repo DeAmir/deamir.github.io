@@ -1,0 +1,11 @@
+<div class="post-sharing" aria-label="Share this note">
+  <span>Share</span>
+  {% assign share_title = page.title | append: ' — ' | append: site.title | uri_escape %}
+  {% assign share_url = page.url | absolute_url | url_encode %}
+  {% for platform in site.data.share.platforms %}
+    {% assign share_link = platform.link | replace: 'TITLE', share_title | replace: 'URL', share_url %}
+    <a href="{{ share_link }}" target="_blank" rel="noopener">{{ platform.type }}</a>
+  {% endfor %}
+  <button type="button" data-copy-url>Copy link</button>
+  <span class="copy-status" aria-live="polite"></span>
+</div>

@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+{% assign home_posts = paginator.posts | default: site.posts %}
+{% assign current_page = paginator.page | default: 1 %}
+{% assign page_offset = current_page | minus: 1 | times: site.paginate %}
+
+<section class="home-intro">
+  <div class="publication-mark">
+    <span>PUBLIC NOTES</span>
+    <span>AMIR DE</span>
+    <span>2023—</span>
+  </div>
+  <h1>{{ site.tagline }}</h1>
+</section>
+
+<section class="paper-index" aria-label="Published notes">
+  {% for post in home_posts %}
+    {% assign paper_number = site.posts.size | minus: page_offset | minus: forloop.index0 %}
+    <article class="paper-row">
+      <span class="paper-number" aria-hidden="true">{{ paper_number | prepend: '00' | slice: -3, 3 }}</span>
+      <div class="paper-summary">
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        {% assign excerpt = post.excerpt | strip_html | strip_newlines %}
+        {% if excerpt != empty %}<p>{{ excerpt | truncatewords: 24 }}</p>{% endif %}
+      </div>
+      <div class="paper-citation">
+        <span>{{ site.social.name | upcase }} · {{ post.date | date: '%Y' }}</span>
+        {% if post.tags.size > 0 %}<span>{{ post.tags | first | replace: '-', ' ' | upcase }}</span>{% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</section>
+
+{% if paginator.total_pages > 1 %}
+  <nav class="pagination" aria-label="Pagination">
+    {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path | relative_url }}">← Newer notes</a>{% else %}<span></span>{% endif %}
+    <span>Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}<a href="{{ paginator.next_page_path | relative_url }}">Older notes →</a>{% endif %}
+  </nav>
+{% endif %}

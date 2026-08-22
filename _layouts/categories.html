@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+{% assign sorted_categories = site.categories | sort %}
+{% if sorted_categories.size > 0 %}
+  <div class="subject-index">
+    {% for category in sorted_categories %}
+      {% assign category_name = category | first %}
+      {% assign category_posts = category | last %}
+      {% assign category_slug = category_name | slugify %}
+      <a href="{{ '/categories/' | append: category_slug | append: '/' | relative_url }}">
+        <span>{{ category_name }}</span>
+        <span>{{ category_posts.size }} {% if category_posts.size == 1 %}note{% else %}notes{% endif %}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No categories have been assigned.</p>
+{% endif %}

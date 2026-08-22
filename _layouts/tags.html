@@ -1,0 +1,16 @@
+---
+layout: page
+---
+
+{% assign sorted_tags = site.tags | sort %}
+<div class="subject-index">
+  {% for tag in sorted_tags %}
+    {% assign tag_name = tag | first %}
+    {% assign tag_posts = tag | last %}
+    {% assign tag_slug = tag_name | slugify %}
+    <a href="{{ '/tags/' | append: tag_slug | append: '/' | relative_url }}">
+      <span>{{ tag_name }}</span>
+      <span>{{ tag_posts.size }} {% if tag_posts.size == 1 %}note{% else %}notes{% endif %}</span>
+    </a>
+  {% endfor %}
+</div>

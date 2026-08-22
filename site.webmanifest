@@ -1,0 +1,13 @@
+---
+layout: null
+permalink: /site.webmanifest
+---
+{
+  "name": {{ site.title | jsonify }},
+  "short_name": "Notes Labyrinth",
+  "description": {{ site.description | jsonify }},
+  "start_url": "{{ '/' | relative_url }}",
+  "display": "standalone",
+  "background_color": "#edf5f7",
+  "theme_color": "#123f71"
+}

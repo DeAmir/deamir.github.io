@@ -1,0 +1,8 @@
+<footer class="site-footer">
+  <span>© {{ 'now' | date: '%Y' }} {{ site.social.name }}</span>
+  <nav aria-label="Footer navigation">
+    <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+    <a href="{{ '/about/' | relative_url }}">About</a>
+    <a href="https://github.com/{{ site.github.username }}">GitHub</a>
+  </nav>
+</footer>

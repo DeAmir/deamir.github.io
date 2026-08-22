@@ -1,0 +1,67 @@
+---
+layout: default
+---
+
+<article class="post-shell">
+  <header class="post-header">
+    <div class="post-series">
+      <span>Note</span>
+      <span>{{ page.date | date: '%Y.%m.%d' }}</span>
+    </div>
+    <h1>{{ page.title }}</h1>
+    <div class="post-byline">
+      <span>By {{ site.social.name }}</span>
+      {% if page.last_modified_at and page.last_modified_at != page.date %}
+        <span>Updated {{ page.last_modified_at | date: '%B %-d, %Y' }}</span>
+      {% endif %}
+      {% if page.tags.size > 0 %}
+        <span>{{ page.tags | join: ' · ' }}</span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post-grid">
+    <aside class="toc-panel" aria-label="On this page">
+      <details class="toc-details" open>
+        <summary>Table of contents</summary>
+        <nav class="toc-list" data-toc></nav>
+      </details>
+    </aside>
+
+    <div class="post-column">
+      {% if page.image %}
+        {% assign image_src = page.image.path | default: page.image %}
+        <figure class="post-hero-image">
+          <img src="{{ image_src | relative_url }}" alt="{{ page.image.alt | default: page.title }}">
+          {% if page.image.alt %}<figcaption>{{ page.image.alt }}</figcaption>{% endif %}
+        </figure>
+      {% endif %}
+
+      <div class="prose post-content" data-post-content>
+        {{ content }}
+      </div>
+
+      {% if page.categories.size > 0 or page.tags.size > 0 %}
+        <footer class="post-taxonomy">
+          {% for category in page.categories %}
+            {% assign category_slug = category | slugify %}
+            <a href="{{ '/categories/' | append: category_slug | append: '/' | relative_url }}">{{ category }}</a>
+          {% endfor %}
+          {% for tag in page.tags %}
+            {% assign tag_slug = tag | slugify %}
+            <a href="{{ '/tags/' | append: tag_slug | append: '/' | relative_url }}">{{ tag }}</a>
+          {% endfor %}
+        </footer>
+      {% endif %}
+
+      {% include scholar-sharing.html %}
+
+      <nav class="post-navigation" aria-label="Adjacent notes">
+        {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span>Previous</span>{{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+        {% if page.next %}<a href="{{ page.next.url | relative_url }}"><span>Next</span>{{ page.next.title }}</a>{% endif %}
+      </nav>
+
+      {% include scholar-comments.html %}
+    </div>
+  </div>
+</article>

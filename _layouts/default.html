@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  {% include scholar-head.html %}
+  <body class="layout-{{ page.layout | default: 'page' }}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-frame">
+      {% include scholar-header.html %}
+      <main id="main-content" tabindex="-1">
+        {{ content }}
+      </main>
+      {% include scholar-footer.html %}
+    </div>
+    <script defer src="{{ '/assets/js/scholar.js' | relative_url }}"></script>
+    <script defer src="{{ '/app.js' | relative_url }}"></script>
+  </body>
+</html>

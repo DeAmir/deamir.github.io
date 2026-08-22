@@ -1,0 +1,12 @@
+---
+layout: page
+---
+
+<div class="collection-list">
+  {% for post in page.posts %}
+    <article>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+    </article>
+  {% endfor %}
+</div>
