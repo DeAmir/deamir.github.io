@@ -14,8 +14,8 @@ layout: page
       {% assign current_year = post_year %}
     {% endif %}
     <article>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
       <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%b %-d' }}</time>
     </article>
     {% if forloop.last %}</div></section>{% endif %}
   {% endfor %}

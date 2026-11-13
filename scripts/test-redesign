@@ -111,12 +111,11 @@ if site.directory?
 
   home = Nokogiri::HTML(File.read(site.join("index.html")))
   failures << "landing page still contains an Abstract block" if home.at_css(".home-abstract")
-  paper_numbers = home.css(".paper-number").map { |node| node.text.to_i }
-  protected_post_count = PROTECTED_HASHES.keys.count do |path|
-    path.start_with?("_posts/") && File.basename(path).match?(/^\d{4}-\d{1,2}-\d{1,2}-/)
-  end
-  unless paper_numbers == paper_numbers.sort.reverse && paper_numbers.first == protected_post_count
-    failures << "landing-page post numbers are not newest-largest"
+  notes = home.css(".note-index .note-row")
+  dates = notes.map { |note| note.at_css("time")&.[]("datetime") }
+  unless notes.any? && notes.all? { |note| note.at_css("h2 a[href]") } &&
+         dates.all? { |date| date&.match?(/\A\d{4}-\d{2}-\d{2}\z/) } && dates == dates.sort.reverse
+    failures << "landing-page notes should have linked titles and dates in newest-first order"
   end
 
   failures << "deleted ELF post was regenerated" if site.join("posts/ELF-Hello-World/index.html").file?

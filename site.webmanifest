@@ -8,8 +8,8 @@ permalink: /site.webmanifest
   "description": {{ site.description | jsonify }},
   "start_url": "{{ '/' | relative_url }}",
   "display": "standalone",
-  "background_color": "#edf5f7",
-  "theme_color": "#12324f",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "{{ '/assets/img/favicons/android-chrome-192x192.png' | relative_url }}",
